@@ -1,0 +1,128 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "ATP_Project (Debug)",
+			"request": "launch",
+			"preLaunchTask": "ATP_Project Win64 Debug Build",
+			"program": "E:\\Project\\Game\\Test\\ATP_Project\\Binaries\\Win64\\UE4-Win64-Debug.exe",
+			"args": [
+			],
+			"cwd": "E:\\Programs\\Unreal Engine\\UE_4.25",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "E:\\Programs\\Unreal Engine\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "ATP_Project (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "ATP_Project Win64 DebugGame Build",
+			"program": "E:\\Project\\Game\\Test\\ATP_Project\\Binaries\\Win64\\UE4-Win64-DebugGame.exe",
+			"args": [
+			],
+			"cwd": "E:\\Programs\\Unreal Engine\\UE_4.25",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "E:\\Programs\\Unreal Engine\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "ATP_Project (Development)",
+			"request": "launch",
+			"preLaunchTask": "ATP_Project Win64 Development Build",
+			"program": "E:\\Project\\Game\\Test\\ATP_Project\\Binaries\\Win64\\UE4.exe",
+			"args": [
+			],
+			"cwd": "E:\\Programs\\Unreal Engine\\UE_4.25",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "E:\\Programs\\Unreal Engine\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "ATP_Project (Shipping)",
+			"request": "launch",
+			"preLaunchTask": "ATP_Project Win64 Shipping Build",
+			"program": "E:\\Project\\Game\\Test\\ATP_Project\\Binaries\\Win64\\UE4-Win64-Shipping.exe",
+			"args": [
+			],
+			"cwd": "E:\\Programs\\Unreal Engine\\UE_4.25",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "E:\\Programs\\Unreal Engine\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "ATP_Project (Test)",
+			"request": "launch",
+			"preLaunchTask": "ATP_Project Win64 Test Build",
+			"program": "E:\\Project\\Game\\Test\\ATP_Project\\Binaries\\Win64\\UE4-Win64-Test.exe",
+			"args": [
+			],
+			"cwd": "E:\\Programs\\Unreal Engine\\UE_4.25",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "E:\\Programs\\Unreal Engine\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "ATP_ProjectEditor (Debug)",
+			"request": "launch",
+			"preLaunchTask": "ATP_ProjectEditor Win64 Debug Build",
+			"program": "E:\\Programs\\Unreal Engine\\UE_4.25\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
+			"args": [
+				"E:\\Project\\Game\\Test\\ATP_Project\\ATP_Project.uproject"
+			],
+			"cwd": "E:\\Programs\\Unreal Engine\\UE_4.25",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "E:\\Programs\\Unreal Engine\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "ATP_ProjectEditor (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "ATP_ProjectEditor Win64 DebugGame Build",
+			"program": "E:\\Programs\\Unreal Engine\\UE_4.25\\Engine\\Binaries\\Win64\\UE4Editor-Win64-DebugGame.exe",
+			"args": [
+				"E:\\Project\\Game\\Test\\ATP_Project\\ATP_Project.uproject"
+			],
+			"cwd": "E:\\Programs\\Unreal Engine\\UE_4.25",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "E:\\Programs\\Unreal Engine\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "ATP_ProjectEditor (Development)",
+			"request": "launch",
+			"preLaunchTask": "ATP_ProjectEditor Win64 Development Build",
+			"program": "E:\\Programs\\Unreal Engine\\UE_4.25\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+			"args": [
+				"E:\\Project\\Game\\Test\\ATP_Project\\ATP_Project.uproject"
+			],
+			"cwd": "E:\\Programs\\Unreal Engine\\UE_4.25",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "E:\\Programs\\Unreal Engine\\UE_4.25\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "Generate Project Files",
+			"type": "clr",
+			"request": "launch",
+			"program": "E:\\Programs\\Unreal Engine\\UE_4.25\\Engine\\Binaries\\DotNET\\UnrealBuildTool.exe",
+			"console": "externalTerminal",
+			"args": [
+				"-projectfiles",
+				"-vscode",
+				"-project=\"E:\\Project\\Game\\Test\\ATP_Project\\ATP_Project.uproject\"",
+				"-game",
+				"-engine"
+			],
+			"internalConsoleOptions": "openOnSessionStart",
+			"cwd": "E:\\Programs\\Unreal Engine\\UE_4.25"
+		}
+	]
+}

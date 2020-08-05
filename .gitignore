@@ -1,0 +1,11 @@
+####    Unreal Engine Derived Files   ####
+*/Intermediate/
+*/Saved/
+*/Binaries/
+*/DerivedDataCache/
+*/Build/
+*_BuiltData.uasset
+*/Content/StarterContent
+
+####   VC  Derived Files   ####
+*.vs

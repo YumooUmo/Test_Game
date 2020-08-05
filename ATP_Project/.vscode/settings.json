@@ -1,0 +1,10 @@
+{
+	"files.exclude": {
+		"E:/Project/Game/Test/ATP_Project/.vscode": true,
+		"E:/Project/Game/Test/ATP_Project/Content": true,
+		"E:/Project/Game/Test/ATP_Project/DerivedDataCache": true,
+		"E:/Project/Game/Test/ATP_Project/Intermediate": true,
+		"E:/Project/Game/Test/ATP_Project/Saved": true
+	},
+	"C_Cpp.errorSquiggles": "Disabled"
+}
