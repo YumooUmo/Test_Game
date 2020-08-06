@@ -32,23 +32,23 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	// ...
 	if (trigger_volume->IsOverlappingActor(actor_accept))
 	{
-		open_door();
+		_open_door();
 		close_time = GetWorld()->GetTimeSeconds();
 		close_time =close_time + close_delay;
 		
 	}
 	if(close_time <= GetWorld()->GetTimeSeconds()){
-		close_door();
+		_close_door();
 	}
 }
 
-//function : open_door()    open the door
-void UOpenDoor::open_door()
+//function : _open_door()    open the door
+void UOpenDoor::_open_door()
 {
 	this_owner->SetActorRotation(FRotator(0.f, open_angle, 0.f));
 }
 
-void UOpenDoor::close_door()
+void UOpenDoor::_close_door()
 {
 	this_owner->SetActorRotation(FRotator(0.f, 0.f, 0.f));
 }

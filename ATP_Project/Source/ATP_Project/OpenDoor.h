@@ -19,8 +19,9 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	virtual void open_door();
-	virtual void close_door();
+	virtual void _open_door();
+	
+	virtual void _close_door();
 
 
 public:	

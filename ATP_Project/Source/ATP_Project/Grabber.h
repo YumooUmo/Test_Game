@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "DrawDebugHelpers.h"
 #include "GameFramework/Actor.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "Components/InputComponent.h"
 #include "Grabber.generated.h"
 
 
@@ -21,7 +23,13 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-	virtual void facing_vector();
+
+	//Get Facing Vector
+	//no return for now
+	virtual void _reach_facing_vector();
+
+	//Grab what's in reach vector
+	virtual void _grab();
 
 public:	
 	// Called every frame
@@ -33,4 +41,10 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float charactor_half_hight = 50.f;
+
+	UPROPERTY(VisibleAnywhere)
+	UPhysicsHandleComponent* physics_handler = nullptr;
+
+	UPROPERTY(VisibleAnywhere)
+	UInputComponent* input_handler = nullptr;
 };
