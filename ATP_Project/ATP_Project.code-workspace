@@ -10,7 +10,34 @@
 		}
 	],
 	"settings": {
-		"typescript.tsc.autoDetect": "off"
+		"typescript.tsc.autoDetect": "off",
+		"files.associations": {
+			"__config": "cpp",
+			"__nullptr": "cpp",
+			"deque": "cpp",
+			"hash_map": "cpp",
+			"hash_set": "cpp",
+			"iterator": "cpp",
+			"list": "cpp",
+			"map": "cpp",
+			"queue": "cpp",
+			"set": "cpp",
+			"stack": "cpp",
+			"vector": "cpp",
+			"xhash": "cpp",
+			"xtree": "cpp",
+			"istream": "cpp",
+			"memory": "cpp",
+			"type_traits": "cpp",
+			"xlocmes": "cpp",
+			"xlocmon": "cpp",
+			"xlocnum": "cpp",
+			"xloctime": "cpp",
+			"tuple": "cpp",
+			"__functional_base": "cpp",
+			"locale": "cpp",
+			"utility": "cpp"
+		}
 	},
 	"extensions": {
 		"recommendations": [

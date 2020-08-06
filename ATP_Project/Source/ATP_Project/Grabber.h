@@ -24,17 +24,17 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	//Get Facing Vector
-	//no return for now
-	virtual void get_viewpoint_vector(FVector &view_point_location, FRotator &view_point_rotation);
-	virtual void get_tpc_reach_vector(FVector &line_start, FVector &line_end, FVector &view_point_location, FRotator &view_point_rotation);
-	virtual void get_reachable_object(FVector &line_start, FVector &line_end);
-	//Grab what's in reach vector
+	//attach physics and input handler, when play begin.
+	virtual void _attach_physics_handler();
+	virtual void _attach_input_handler();
+
+	//Get Viewpoint Vector, and add to tickcomponent to get realtime view point
+	virtual void get_view_point_vector(FVector &view_point_location, FRotator &view_point_rotation);
+	//Get Object Reached (Hit)
+	virtual void get_first_object_inreach(FHitResult &object_group_inreach, FVector &view_point_location, FRotator &view_point_rotation);
+
 	//Grab for the first time, release for second time.
 	virtual void _grab();
-
-
-
 
 public:
 	// Called every frame
@@ -44,12 +44,10 @@ private:
 	bool is_grabbing = false;
 
 	FVector view_point_location = FVector(0.f, 0.f, 0.f);
-	
+
 	FRotator view_point_rotation = FRotator(0.f, 0.f, 0.f);
 
-	FVector line_start = FVector(0.f, 0.f, 0.f);
-
-	FVector line_end = FVector(0.f, 0.f, 0.f);
+	FHitResult object_group_inreach;
 
 	UInputComponent *input_handler = nullptr;
 
@@ -60,5 +58,4 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float charactor_half_hight = 50.f;
-
 };
