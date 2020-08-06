@@ -5,7 +5,8 @@
 */DerivedDataCache/
 */Build/
 *_BuiltData.uasset
-*/Content/StarterContent
+*/Content/StarterContent/Textures
+*/Content/StarterContent/HDRI
 
 ####   VC  Derived Files   ####
 *.vs
