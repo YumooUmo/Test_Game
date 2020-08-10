@@ -30,8 +30,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	//after grabb, keep grabbed component in the right place
 	if (physics_handler->GrabbedComponent)
 	{
-		get_view_point_vector(view_point_location, view_point_rotation);
-		physics_handler->SetTargetLocation((view_point_location + view_point_rotation.Vector() * length_reach));
+		physics_handler->SetTargetLocation(get_reach_vector_end());
 	}
 };
 
@@ -40,13 +39,13 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 void UGrabber::_attach_physics_handler()
 {
 	physics_handler = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	if (physics_handler)
+	if (physics_handler == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("%s Get Physics Handle Component ~!"), *(GetOwner()->GetName()));
+		UE_LOG(LogTemp, Error, TEXT("%s missing Physics Handle Component ~!"), *(GetOwner()->GetName()));
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("%s missing Physics Handle Component ~!"), *(GetOwner()->GetName()));
+		UE_LOG(LogTemp, Error, TEXT("%s Physics Handle Component is Attached~!"), *(GetOwner()->GetName()));
 	}
 }
 //Attach input handler
@@ -55,53 +54,44 @@ void UGrabber::_attach_input_handler()
 	//	Look for attached Input handler
 	//	**** Bind Action
 	input_handler = GetOwner()->FindComponentByClass<UInputComponent>();
-	if (input_handler)
+	if (input_handler == nullptr)
+	{
+		//	Debug:
+		UE_LOG(LogTemp, Error, TEXT("%s missing Input Handle Component ~!"), *(GetOwner()->GetName()));
+	}
+	else
 	{
 		// Debug:
 		UE_LOG(LogTemp, Warning, TEXT("%s Input Handle Component is found~!"), *(GetOwner()->GetName()));
 		//****		Bind an Action to Grabber
 		input_handler->BindAction("Grab", IE_Pressed, this, &UGrabber::_grab);
 	}
-	else
-	{
-		//	Debug:
-		UE_LOG(LogTemp, Error, TEXT("%s missing Input Handle Component ~!"), *(GetOwner()->GetName()));
-	}
-}
-
-// Get player view point
-void UGrabber::get_view_point_vector(FVector &location, FRotator &rotation)
-{
-	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
-		OUT location,
-		OUT rotation);
-	//Debug:
-	// UE_LOG(LogTemp, Warning, TEXT("Location : %s , Rotation : %s"), *view_point_location.ToString(), *view_point_rotation.ToString());
 }
 
 //get_first_object_inreach and return a group of actors in reach :: in here should be only one object
-void UGrabber::get_first_object_inreach(FHitResult &group_inreach, FVector &location, FRotator &rotation)
+FHitResult UGrabber::get_first_object_inreach()
 {
-	//
-	get_view_point_vector(location, rotation);
+	FHitResult object_group_inreach;
 	//setup queryparams
 	FCollisionQueryParams ignore_prama{FName(TEXT("")), false, GetOwner()};
 
 	//Object In Reach
 	GetWorld()->LineTraceSingleByObjectType(
-		OUT group_inreach,
+		OUT object_group_inreach,
 		//**** start vector	:	ThirdPersonCharactor + half_hight(raise handle start point a little higher)
-		GetOwner()->GetActorLocation() + FVector(0.f, 0.f, charactor_half_hight),
+		get_reach_vector_start(),
 		//**** end vector	:	view point location + rotation direction * length(distance in reach)
-		location + rotation.Vector() * length_reach,
+		get_reach_vector_end(),
 		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
 		ignore_prama);
 
+	return object_group_inreach;
 	//Debug:
-	if (group_inreach.GetActor())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Hit Actor : %s"), *(group_inreach.GetActor()->GetName()));
-	}
+	// if (object_group_inreach.GetActor())
+	// {
+	// 	UE_LOG(LogTemp, Warning, TEXT("Hit Actor : %s"), *(object_group_inreach.GetActor()->GetName()));
+
+	// }
 }
 
 //Grab FUNCTION: _grab
@@ -118,16 +108,32 @@ void UGrabber::_grab()
 	else
 	{
 		//get first object in reach
-		get_first_object_inreach(object_group_inreach, view_point_location, view_point_rotation);
+		FHitResult object_group_inreach = get_first_object_inreach();
 		if (object_group_inreach.GetActor())
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Grab something ~!"));
 			is_grabbing = true;
-			physics_handler->GrabComponent(
+
+			physics_handler->GrabComponentAtLocationWithRotation(
 				object_group_inreach.GetComponent(), //Which component we grab at.
 				NAME_None,
-				view_point_location + view_point_rotation.Vector() * length_reach, //when grab, hold to which location
-				true);
+				get_reach_vector_end(), //when grab, hold to which location
+				GetOwner()->GetActorRotation()
+				);
 		}
 	}
+}
+
+FVector UGrabber::get_reach_vector_start()
+{
+	return GetOwner()->GetActorLocation() + FVector(0.f, 0.f, charactor_half_hight);
+}
+
+FVector UGrabber::get_reach_vector_end()
+{
+	FVector view_point_location;
+	FRotator view_point_rotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
+		OUT view_point_location,
+		OUT view_point_rotation);
+	return view_point_location + view_point_rotation.Vector() * length_reach;
 }
