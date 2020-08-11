@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "OpenDoor.h"
+#define OUT
 
 // Sets default values for this component's properties
 UOpenDoor::UOpenDoor()
@@ -18,10 +19,6 @@ void UOpenDoor::BeginPlay()
 	Super::BeginPlay();
 
 	//get player
-	actor_accept = GetWorld()->GetFirstPlayerController()->GetPawn();
-
-	//get owner
-	this_owner = GetOwner();
 }
 
 // Called every frame
@@ -30,25 +27,52 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
-	if (trigger_volume->IsOverlappingActor(actor_accept))
+	//If total mass on trigger_volume is more than 50kg, then open the door
+	if (get_total_mass() >= mass_open)
 	{
 		_open_door();
-		close_time = GetWorld()->GetTimeSeconds();
-		close_time =close_time + close_delay;
-		
 	}
-	if(close_time <= GetWorld()->GetTimeSeconds()){
+	else
+	{
 		_close_door();
-	}
+	};
+
+	// UE_LOG(LogTemp, Error, TEXT(" Total Mass is %s ~!"), get_total_mass());
+	// debug();
 }
 
 //function : _open_door()    open the door
 void UOpenDoor::_open_door()
 {
-	this_owner->SetActorRotation(FRotator(0.f, open_angle, 0.f));
+	GetOwner()->SetActorRotation(FRotator(0.f, open_angle, 0.f));
 }
 
 void UOpenDoor::_close_door()
 {
-	this_owner->SetActorRotation(FRotator(0.f, 0.f, 0.f));
+	GetOwner()->SetActorRotation(FRotator(0.f, 0.f, 0.f));
+}
+//Get Total Mass Of Actors on Trigger_volume Bounds to this Door;
+float UOpenDoor::get_total_mass()
+{
+	float total_mass = 0.f;
+	TArray<AActor *> actors_overlapping;
+
+	trigger_volume->GetOverlappingActors(OUT actors_overlapping);
+	for (const auto &actor : actors_overlapping)
+	{
+		total_mass += actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+	}
+	UE_LOG(LogTemp, Error, TEXT(" Total Mass is %s ~!"), *FString::SanitizeFloat(total_mass));
+	return total_mass;
+}
+
+//debug
+void UOpenDoor::debug()
+{
+	TArray<AActor *> actors_overlapping;
+	trigger_volume->GetOverlappingActors(OUT actors_overlapping);
+	for (const auto &actor : actors_overlapping)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s is on the plate ~!"), *actor->GetName());
+	}
 }
