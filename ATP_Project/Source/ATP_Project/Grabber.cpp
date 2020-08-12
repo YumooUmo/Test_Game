@@ -28,6 +28,10 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	//...
 
 	//after grabb, keep grabbed component in the right place
+	if (!physics_handler)
+	{
+		return;
+	}
 	if (physics_handler->GrabbedComponent)
 	{
 		physics_handler->SetTargetLocation(get_reach_vector_end());
@@ -111,14 +115,18 @@ void UGrabber::_grab()
 		FHitResult object_group_inreach = get_first_object_inreach();
 		if (object_group_inreach.GetActor())
 		{
-			is_grabbing = true;
+			if (!physics_handler)
+			{
+				return;
+			}
 
 			physics_handler->GrabComponentAtLocationWithRotation(
 				object_group_inreach.GetComponent(), //Which component we grab at.
 				NAME_None,
 				get_reach_vector_end(), //when grab, hold to which location
-				GetOwner()->GetActorRotation()
-				);
+				GetOwner()->GetActorRotation());
+
+			is_grabbing = true;
 		}
 	}
 }

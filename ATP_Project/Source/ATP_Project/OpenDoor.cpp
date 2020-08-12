@@ -18,7 +18,12 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//get player
+	//Debug : if trigger_volume is nullptr;
+	if (!trigger_volume)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Trigger_Volume is missing ~!"));
+		return;
+	}
 }
 
 // Called every frame
@@ -28,6 +33,10 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 	// ...
 	//If total mass on trigger_volume is more than 50kg, then open the door
+	if (!trigger_volume)
+	{
+		return;
+	}
 	if (get_total_mass() >= mass_open)
 	{
 		_open_door();

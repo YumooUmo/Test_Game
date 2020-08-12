@@ -28,7 +28,7 @@ private:
 	float open_angle = 85.f;
 
 	UPROPERTY(EditAnywhere)
-	float mass_open = 40.f;
+	float mass_open = 30.f;
 
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume *trigger_volume = nullptr;
