@@ -5,6 +5,8 @@
 #include "Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenRequest);
+
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 //UCLASS()
 class ATP_PROJECT_API UOpenDoor : public UActorComponent
@@ -23,7 +25,12 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
+	UPROPERTY(BlueprintAssignable)
+	FOnOpenRequest OnOpenRequest;
+
 private:
+	bool open_status = false;
+
 	UPROPERTY(VisibleAnywhere)
 	float open_angle = 85.f;
 

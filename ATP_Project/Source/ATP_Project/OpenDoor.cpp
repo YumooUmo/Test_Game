@@ -53,12 +53,18 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 //function : _open_door()    open the door
 void UOpenDoor::_open_door()
 {
-	GetOwner()->SetActorRotation(FRotator(0.f, open_angle, 0.f));
+	if(open_status == false){
+	open_status = true;		
+	OnOpenRequest.Broadcast();
+	}
 }
 
 void UOpenDoor::_close_door()
 {
-	GetOwner()->SetActorRotation(FRotator(0.f, 0.f, 0.f));
+	if(open_status){
+		GetOwner()->SetActorRotation(FRotator(0.f, 0.f, 0.f));
+		open_status = false;
+	}
 }
 //Get Total Mass Of Actors on Trigger_volume Bounds to this Door;
 float UOpenDoor::get_total_mass()
