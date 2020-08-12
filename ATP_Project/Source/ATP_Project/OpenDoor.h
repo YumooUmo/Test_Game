@@ -5,7 +5,8 @@
 #include "Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenRequest);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDoorEvent);
+
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 //UCLASS()
@@ -26,13 +27,14 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
 	UPROPERTY(BlueprintAssignable)
-	FOnOpenRequest OnOpenRequest;
+	FDoorEvent OnOpen;
+
+	UPROPERTY(BlueprintAssignable)
+	FDoorEvent OnClose;
+
 
 private:
 	bool open_status = false;
-
-	UPROPERTY(VisibleAnywhere)
-	float open_angle = 85.f;
 
 	UPROPERTY(EditAnywhere)
 	float mass_open = 30.f;
